@@ -1,0 +1,9 @@
+
+(
+    FILE="debian/changelog"
+    ver="$(./version.sh | tr -d 'vdirty-')"
+    echo "Setting version to $ver"
+    sed -i "0,/(.*)/s//($ver-xbian)/" $FILE
+    sed -i "0,/jessie/s//$(lsb_release -sc)/" $FILE
+    sed -i "0,/__DATE__/s//$(LC_ALL=C date "+%a, %e %b %Y %X %z")/" $FILE
+)

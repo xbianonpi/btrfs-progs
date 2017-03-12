@@ -1,0 +1,3 @@
+armhf devel imx6-${config_os_version}
+armhf devel rpi2-${config_os_version}
+armhfv6 devel rpi-${config_os_version}

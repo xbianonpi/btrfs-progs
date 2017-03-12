@@ -1,0 +1,5 @@
+config_wrapper=build.package
+config_source_type=git
+config_source_addr=https://github.com/kdave/btrfs-progs
+config_wipe_before=yes
+config_build_make=dpkg-buildpackage -us -uc -nc -b -j$(grep -c processor /proc/cpuinfo) && exec true
