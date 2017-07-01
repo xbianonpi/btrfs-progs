@@ -1,3 +1,7 @@
-armhf devel imx6-${config_os_version}
-armhf devel rpi2-${config_os_version}
-armhfv6 devel rpi-${config_os_version}
+armhf staging imx6-${config_os_version}
+armhf staging rpi2-${config_os_version}
+armhfv6 staging rpi-${config_os_version}
+
+armhf-4.9 stable imx6-${config_os_version}
+armhf-4.9 stable rpi2-${config_os_version}
+armhfv6-4.9 stable rpi-${config_os_version}
