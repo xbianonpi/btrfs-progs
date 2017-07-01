@@ -1,0 +1,2 @@
+config_build_env=schroot -c armhf${config_os_version} -p --
+config_checkout_commit=96485c34ac0329fb0073476f16d2083c64701f29
