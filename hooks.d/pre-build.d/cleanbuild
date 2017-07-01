@@ -1,0 +1,3 @@
+
+rm -f ../btrfs-progs*
+rm -f ../btrfs-tools*
