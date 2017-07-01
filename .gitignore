@@ -6,6 +6,7 @@ build.*
 *.deb
 *.udeb
 *.changes
+*.buildinfo
 ._*
 src_repo_hash_HEAD
 config_pkgver
