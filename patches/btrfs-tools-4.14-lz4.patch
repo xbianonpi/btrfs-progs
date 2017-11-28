@@ -1,0 +1,69 @@
+diff --git a/cmds-filesystem.c b/cmds-filesystem.c
+index 7728430f..4d061e0d 100644
+--- a/cmds-filesystem.c
++++ b/cmds-filesystem.c
+@@ -847,6 +847,8 @@ static int parse_compress_type(char *s)
+ 		return BTRFS_COMPRESS_ZLIB;
+ 	else if (strcmp(optarg, "lzo") == 0)
+ 		return BTRFS_COMPRESS_LZO;
++	else if (strcmp(optarg, "lz4") == 0)
++		return BTRFS_COMPRESS_LZ4;
+ 	else if (strcmp(optarg, "zstd") == 0)
+ 		return BTRFS_COMPRESS_ZSTD;
+ 	else {
+@@ -859,13 +861,13 @@ static const char * const cmd_filesystem_defrag_usage[] = {
+ 	"btrfs filesystem defragment [options] <file>|<dir> [<file>|<dir>...]",
+ 	"Defragment a file or a directory",
+ 	"",
+-	"-v                  be verbose",
+-	"-r                  defragment files recursively",
+-	"-c[zlib,lzo,zstd]   compress the file while defragmenting",
+-	"-f                  flush data to disk immediately after defragmenting",
+-	"-s start            defragment only from byte onward",
+-	"-l len              defragment only up to len bytes",
+-	"-t size             target extent size hint (default: 32M)",
++	"-v                      be verbose",
++	"-r                      defragment files recursively",
++	"-c[zlib,lzo,lz4,zstd]   compress the file while defragmenting",
++	"-f                      flush data to disk immediately after defragmenting",
++	"-s start                defragment only from byte onward",
++	"-l len                  defragment only up to len bytes",
++	"-t size                 target extent size hint (default: 32M)",
+ 	"",
+ 	"Warning: most Linux kernels will break up the ref-links of COW data",
+ 	"(e.g., files copied with 'cp --reflink', snapshots) which may cause",
+diff --git a/ctree.h b/ctree.h
+index b92df1c1..0e0940a9 100644
+--- a/ctree.h
++++ b/ctree.h
+@@ -487,6 +487,7 @@ struct btrfs_super_block {
+ #define BTRFS_FEATURE_INCOMPAT_MIXED_GROUPS	(1ULL << 2)
+ #define BTRFS_FEATURE_INCOMPAT_COMPRESS_LZO	(1ULL << 3)
+ #define BTRFS_FEATURE_INCOMPAT_COMPRESS_ZSTD	(1ULL << 4)
++#define BTRFS_FEATURE_INCOMPAT_COMPRESS_LZ4	(1ULL << 4)
+ 
+ /*
+  * older kernels tried to do bigger metadata blocks, but the
+@@ -517,6 +518,7 @@ struct btrfs_super_block {
+ 	 BTRFS_FEATURE_INCOMPAT_RAID56 |		\
+ 	 BTRFS_FEATURE_INCOMPAT_MIXED_GROUPS |		\
+ 	 BTRFS_FEATURE_INCOMPAT_SKINNY_METADATA |	\
++	 BTRFS_FEATURE_INCOMPAT_COMPRESS_LZ4 |          \
+ 	 BTRFS_FEATURE_INCOMPAT_NO_HOLES)
+ 
+ /*
+@@ -673,9 +675,11 @@ typedef enum {
+ 	BTRFS_COMPRESS_NONE  = 0,
+ 	BTRFS_COMPRESS_ZLIB  = 1,
+ 	BTRFS_COMPRESS_LZO   = 2,
+-	BTRFS_COMPRESS_ZSTD  = 3,
+-	BTRFS_COMPRESS_TYPES = 3,
+-	BTRFS_COMPRESS_LAST  = 4,
++	BTRFS_COMPRESS_LZ4   = 3,
++	BTRFS_COMPRESS_LZ4HC = 4,
++	BTRFS_COMPRESS_ZSTD  = 5,
++	BTRFS_COMPRESS_TYPES = 5,
++	BTRFS_COMPRESS_LAST  = 6,
+ } btrfs_compression_type;
+ 
+ /* we don't understand any encryption methods right now */
