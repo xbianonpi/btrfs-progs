@@ -1,7 +1,5 @@
-armhf staging imx6-${config_os_version}
-armhf staging rpi2-${config_os_version}
-armhfv6 staging rpi-${config_os_version}
+armhf   staging armv7l-${config_os_version}
+armhfv6 staging armv6l-${config_os_version}
 
-armhf-4.9 stable imx6-${config_os_version}
-armhf-4.9 stable rpi2-${config_os_version}
-armhfv6-4.9 stable rpi-${config_os_version}
+armhf-4.9   stable armv7l-${config_os_version}
+armhfv6-4.9 stable armv6l-${config_os_version}
